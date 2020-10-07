@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en-us" prefix="og: http://ogp.me/ns#">
+  <head itemscope itemtype="">
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+
+<title itemprop="name">Modify Inspection</title>
+<meta property="og:title" content="Search Certificates">
+<meta name="twitter:title" content="Search Certificates">
+<meta itemprop="name" content="Search Certificates" />
+<meta name="application-name" content="Search Certificates" />
+<meta property="og:site_name" content="" />
+
+
+<meta name="description" content="">
+<meta itemprop="description" content=""/>
+<meta property="og:description" content="">
+<meta name="twitter:description" content="">
+
+
+<link rel="canonical" href="/certificates/search/" itemprop="url">
+<meta property="url" content="/certificates/search/" />
+<meta property="og:url" content="/certificates/search/">
+<meta name="url" content="/certificates/search/" />
+<meta name="twitter:url" content="/certificates/search/">
+
+
+
+
+
+<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename = '/css/main.css')}}">
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+
+
+  <meta itemprop="image" content="">
+  <meta name="twitter:image:src" content="" />
+  <meta property="og:image" content="" />
+  <meta name="twitter:image" content="" />
+
+
+
+
+  <meta property="article:author" content="">
+  <meta property="og:article:author" content="" />
+  <meta name="author" content="">
+
+
+
+<meta property="og:locale" content="en">
+<meta name="language" content="">
+
+
+<meta property="og:updated_time" content="0001-01-01T00:00:00Z"/>
+<meta property="article:published_time" content="0001-01-01T00:00:00Z" />
+
+
+<link rel="sitemap" type="application/xml" title="Sitemap" href='sitemap.xml'>
+
+<style>
+    select{
+        color:#aaa;
+    }
+    option:not(first-child) {
+        color: #000;
+    }
+</style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $("select").change(function(){
+            if ($(this).val()=="") $(this).css({background: "#f7f7f7"}).css({color:"#333333"});
+            else if ($(this).val()=="PASS") $(this).css({background: "#006600"}).css({color:"white"});
+            else if ($(this).val()=="FAIL") $(this).css({background: "#dc3545"}).css({color:"white"});
+            else if ($(this).val()=="REPAIR") $(this).css({background: "#f8c346"}).css({color:"#212529"});
+            else if ($(this).val()=="NULL") $(this).css({background: "#f7f7f7"}).css({color:"#333333"});
+        });
+    });
+</script>
+
+
+<meta name="keywords" content="">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="">
+<meta name="twitter:creator" content="">
+<meta name="robots" content="index,follow">
+<meta name="googlebot" content="index,follow">
+<meta name="google" content="notranslate">
+<meta name="theme-color" content="#FFFFFF">
+<meta name="imagemode" content="force">
+<meta name="wap-font-scale" content="no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="manifest" href='manifest.json'>
+
+
+<link rel="shortcut icon" href="/favicon.ico" />
+<link rel="icon" type="image/x-icon" sizes="16x16 32x32" href="/favicon.ico">
+<link rel="apple-touch-icon" sizes="152x152" href="/favicons/favicon-152-precomposed.png">
+<link rel="apple-touch-icon" sizes="144x144" href="/favicons/favicon-144-precomposed.png">
+<link rel="apple-touch-icon" sizes="120x120" href="/favicons/favicon-120-precomposed.png">
+<link rel="apple-touch-icon" sizes="114x114" href="/favicons/favicon-114-precomposed.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicons/favicon-180-precomposed.png">
+<link rel="apple-touch-icon" sizes="72x72" href="/favicons/favicon-72-precomposed.png">
+<link rel="apple-touch-icon" href="/favicons/favicon-57.png">
+<link rel="icon" href="/favicons/favicon-32.png" sizes="32x32">
+<link rel="icon" sizes="192x192" href="/favicons/favicon-192.png">
+
+
+
+
+  <meta property="og:type" content="website" />
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "WebSite",
+      "url": "\/certificates\/search\/",
+      "name": "Search Certificates",
+       "author": {
+          "@type": "Person",
+          "name": ""
+        },
+      "description": "",
+      "publisher": ""
+    }
+  </script>
+
+
+
+  </head>
+
+  <body>
+    <header class="navbar navbar-expand-lg navbar-dark dashboard-header py-1 py-lg-0 position-fixed">
+  <div class="container-fluid px-0">
+    <div class="flex-center order-1">
+      <a href="#dashboard-sidebar" class="btn btn-link border-0 py-2 pr-3 pl-0 dashboard-sidebar-close">
+        <i data-feather="menu" class="text-white"></i>
+      </a>
+      <div class="navbar-brand flex-center">
+        <span  onclick="signout();" class="d-flex">
+          <img src="{{ url_for('static', filename = '/images/cumulus-white.svg')}}" style="width: 120px;" />
+        </span>
+      </div>
+    </div>
+    <div class="flex-between order-3">
+      <div class="dropdown">
+        <button
+          class="btn btn-link p-0 text-decoration-none text-white dropdown-toggle d-flex align-items-center"
+          type="button"
+          id="profiledropdown"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          <div class="avatar">
+            <img id="user-profile-image" src="{{ url_for('static', filename = '/images/pic.jpg')}}" class="rounded-circle" alt="" />
+          </div>
+        </button>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="profiledropdown">
+          <a class="dropdown-item" href="/contacts">
+            <i data-feather="help-circle"></i>
+            Support
+          </a>
+          <span class="dropdown-item" onclick="signout();">
+            <i data-feather="log-out"></i>
+            Logout
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="container-fluid layout-wrapper">
+  <div class="dashboard-sidebar card card-body p-0 border-0 rounded-0">
+<ul class="nav flex-column mt-3">
+<li class="nav-item">
+  <a class="nav-link " href="/home">
+      <i data-feather="home"></i>
+      Home
+  </a>
+</li>
+<div class="card-header pt-3 py-0 border-0">
+  <p class="small-heading text-dark mb-2">Testing</p>
+</div>
+<li class="nav-item">
+  <a class="nav-link" href="/certs">
+      <i data-feather="search"></i>
+      Search Certs
+  </a>
+</li>
+<div class="card-header pt-3 py-0 border-0">
+  <p class="small-heading text-dark mb-2">Asset Management</p>
+</div>
+<li class="nav-item">
+  <a class="nav-link" href="" style="color:#990000;">
+      <i data-feather="anchor" style="color:#990000;"></i>
+      Create New Asset
+  </a>
+  <a class="nav-link" href="" style="color:#990000;">
+      <i data-feather="search" style="color:#990000;"></i>
+      Search Assets
+  </a>
+  <a class="nav-link" href="" style="color:#990000;">
+      <i data-feather="file" style="color:#990000;"></i>
+      Reports
+  </a>
+</li>
+<div class="card-header pt-3 py-0 border-0">
+  <p class="small-heading text-dark mb-2">Inspection</p>
+</div>
+<li class="nav-item">
+  <a class="nav-link " href="/newform">
+      <i data-feather="anchor"></i>
+      New Asset Inspection
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link active" href="/previous">
+      <i data-feather="database"></i>
+      Asset Inspections
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/update">
+      <i data-feather="edit"></i>
+      Modify Inspection Record
+  </a>
+</li>
+<li class="nav-item">
+  <a class="nav-link " href="/search">
+      <i data-feather="search"></i>
+      Search Inspections
+  </a>
+</li>
+<div class="card-header pt-3 py-0 border-0">
+  <p class="small-heading text-dark mb-2">Other</p>
+</div>
+<li class="nav-item">
+  <a class="nav-link" href="/alerts">
+      <i data-feather="alert-triangle"></i>
+      Alerts
+  </a>
+</li>
+</ul>
+</div>
+<div class="main-content pt-2 pl-2">
+
+<h2 class="mb-3">Asset Inspections</h2>
+
+<div class="card card-body mb-3">
+  <form id="updateForm" onsubmit="event.preventDefault(); onUpdate();" name ="updateForm">
+    <div class="row">
+    <div class="col-md-8">
+    <div class="form-group">
+      <label for="customername"><i data-feather="user" style="color:orange"></i>&nbsp;Customer Name:</label>
+      <input type="customername"  class="form-control" id="customername" name="customername" placeholder="Enter customer name here..." value="{{customername}}" required/>
+    </div>
+  </div>
+  <div class="col">
+    <div class="form-group">
+      <label for="location"><i data-feather="map-pin" style="color:#b30000"></i>&nbsp;Location:</label>
+      <input type="location" class="form-control" id="location" name="location" placeholder="Enter location here" value="{{location}}" required/ >
+    </div>
+  </div>
+</div>
+    <div class="row">
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="location"><i data-feather="hash" style="color:#b30000"></i>&nbsp;Order Number:</label>
+          <input type="location" class="form-control" id="order" name="order" placeholder="Enter order number here" value="{{order}}" required/ >
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="order"><i data-feather="tag" style="color:#001737"></i>&nbsp;Serial Number:</label>
+          <input type="order" class="form-control"id="serial" name="serial" placeholder="Enter serial number here" value="{{serial}}"/>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="form-group">
+          <label for="assetno"><i data-feather="box" style="color:#0000b3"></i>&nbsp;Asset Number:</label>
+          <input type="assetno" class="form-control"id="assetno" name="assetno" placeholder="Enter asset number here" value="{{assetno}}" required/>
+        </div>
+      </div>
+      <div class="col-md-3">
+      <div class="form-group dropdown">
+        <label for="checklist"><i data-feather="list" style="color:black"></i>&nbsp;Checklist:</label><br>
+        <select class="custom-select" type="checklist" id="checklist" name="checklist" onchange="">
+          <option value="nothing" {{select_1_1}}>None</option>
+          <option value="calipers" {{select_1_2}}>Calipers Inspection Checklist</option>
+          <option value="forklift" {{select_1_3}}>Forklift Inspection Checklist</option>
+          <option value="micro" {{select_1_4}}>Micrometer Inspection Checklist</option>
+          <option value="crane" {{select_1_5}}>Crane Inspection Checklist</option>
+          <option value="fire" {{select_1_6}}>Fire Protection Inspection Checklist</option>
+        </select>
+      </div>
+    </div>
+    </div>
+      <div class="form-group">
+        <label for="asset">Asset Description:</label>
+        <input type="text" class="form-control" id="asset" name="asset" placeholder="Enter asset description here" value="{{asset}}"/>
+      </div>
+      <div class="form-group">
+        <label for="producttype"><i data-feather="package" style="color:#15749d"></i>&nbsp;Product Type:</label>
+        <input type="text" class="form-control" id="producttype" name="producttype" placeholder="Enter product type here" value="{{producttype}}"/>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="inspector">Inspector:</label>
+            <input type="text" class="form-control" id="inspector" name="inspector" placeholder="Enter inspector name here" value="{{inspector}}"/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="inspectiontype"><i data-feather="eye" style="color:#15749d"></i>&nbsp;Inspection Type:</label>
+            <input type="text" class="form-control" id="inspectiontype" name="inspectiontype" placeholder="Enter inspection type here" value="{{inspectiontype}}"/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="inspectiondate"><i data-feather="calendar" style="color:#006600"></i>&nbsp;Inspection Date:</label>
+            <input type="date" class="form-control" id="inspectiondate" name="inspectiondate" placeholder="Enter inspection date here" value="{{inspectiondate}}" required/>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="form-group">
+            <label for="inspectiondate"><i data-feather="calendar" style="color:black"></i>&nbsp;Due Date:</label>
+            <input type="date" class="form-control" id="duedate" name="duedate" placeholder="Enter due date here" value="{{duedate}}" required/>
+          </div>
+        </div>
+      </div>
+            <div class="row">
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="size"><i data-feather="hash" style="color:#006600"></i>&nbsp;Size:</label>
+                  <input type="text" class="form-control" id="size" name="size" placeholder="Enter size here" value="{{size}}"/>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="form-group">
+                  <label for="length"><i data-feather="link" style="color:#6c757d"></i>&nbsp;Length:</label>
+                  <input type="text" class="form-control" id="length" name="length" placeholder="Enter length here" value="{{length}}"/>
+                </div>
+              </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="wll"><i data-feather="anchor" style="color: #5900b3"></i>&nbsp;WLL:</label>
+                    <input type="text" class="form-control" id="wll" name="wll" placeholder="Enter load here" value="{{wll}}"/>
+                  </div>
+                </div>
+                <div class="col-md-3">
+                  <div class="form-group">
+                    <label for="salesmen">Salesmen:</label>
+                    <input type="text" class="form-control" id="salesmen" name="salesmen" placeholder="Enter salesmen name here" value="{{salesmen}}"/>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+              <div class="col-4">
+                <div class="form-group">
+                  <label for="validationCustom04"><i data-feather="check-circle" style="color:#006600"></i>&nbsp;Result:</label>
+                  <select class="custom-select" id="validationCustom04" name="result" value="{{result}}">
+                    <option value="">Choose...</option>
+                    <option value="PASS" {{ select_1 }}>PASS</option>
+                    <option value="FAIL" {{ select_2 }}>FAIL</option>
+                    <option value="REPAIR" {{ select_3 }}>REPAIR</option>
+                    <option value="NULL" {{ select_4 }}>------</option>
+                  </select>
+                </div>
+                <div class="invalid-feedback">
+                  Please select a valid result.
+                </div>
+              </div>
+              <div class="col">
+                <div class="form-group">
+                  <label for="comments">Comments:</label>
+                  <input type="text" class="form-control" id="comments" name="comments" placeholder="Enter your comments here" value="{{comments}}"/>
+                </div>
+              </div>
+            </div>
+          <div class="d-flex justify-content-end">
+            <div id="message" style="padding-right:1.5rem; padding-top:0.4rem; color:#006600; size:1.4rem">
+            </div>
+            <a type="reset" name="reset" value="reset" class="btn btn-danger" href="/previous" > <i data-feather="x-circle" style="color:white"></i> Clear</a>
+            <button name="submit" value="submit" class="btn btn-primary ml-1" ><i data-feather="save" style="color:white"></i> Save</button>
+          </div>
+
+</div>
+
+</form>
+</div>
+
+<form id="loadForm" onsubmit="event.preventDefault(); onLoad();" name ="loadForm">
+<div class="main-content pt-2 pl-2">
+  <h2 class="mb-3">Search</h2>
+  <div class="card card-body mb-3">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="name">Customer Name:</label>
+        <input type="text" class="form-control" name="name" id="name" placeholder="Enter customer name here" required />
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="address">Location:</label>
+        <input type="text" class="form-control" name ="address" id="address" placeholder="Enter location here" required />
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="assetnum">Asset Number:</label>
+        <input type="text" class="form-control" name ="assetnum" id="assetnum" placeholder="Enter asset number here" required/>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="form-group">
+        <label for="date">Inspection Date:</label>
+        <input type="date" class="form-control" name="date" id="date" placeholder="Enter date here" required/>
+      </div>
+    </div>
+  </div>
+  <div class="d-flex justify-content-end">
+    <button name="load" value="load" class="btn btn-warning ml-1" ><i data-feather="upload" style="color:#333"></i> Load</button>
+
+  </div>
+</div>
+</div>
+        </form>
+    </main>
+    <div class="backdrop"></div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script
+  src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+  integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+  crossorigin="anonymous"
+></script>
+<script
+  src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+  integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+  crossorigin="anonymous"
+></script>
+
+
+<script type="text/javascript" src="{{ url_for('static', filename = '/js/app.js')}}"></script>
+
+<script src="https://unpkg.com/feather-icons"></script>
+
+<script>
+  feather.replace();
+</script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+<!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+
+<!-- If you enabled Analytics in your project, add the Firebase SDK for Analytics -->
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
+
+<!-- Add Firebase products that you want to use -->
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+<script>
+var firebaseConfig = {
+    apiKey: "AIzaSyAx_91UhqLyQM9BwTf2hhwUC-1T6DNV0RY",
+    authDomain: "mycloud-d0d74.firebaseapp.com",
+    databaseURL: "https://mycloud-d0d74.firebaseio.com",
+    projectId: "mycloud-d0d74",
+    storageBucket: "mycloud-d0d74.appspot.com",
+    messagingSenderId: "887766660646",
+    appId: "1:887766660646:web:a23f6afeeca7c4ca0fd8e7",
+    measurementId: "G-G7HPD5ZDYM"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+console.log("calling")
+let auth = firebase.auth()
+
+function handleauth(e){
+  e.preventDefault()
+ console.log("alert")
+}
+
+function signout(){
+  auth.signOut()
+}
+
+// auth.signInWithEmailAndPassword("gunam@gmail.com", "gunam123").catch(function(error) {
+//   window.location = "http://127.0.0.1:5000/"
+// });
+var email;
+auth.onAuthStateChanged(function(user) {
+  console.log("before if")
+  console.log(user)
+  if (user) {
+    console.log("user")
+    email = user.email;
+  }
+  else{
+    window.location = "/"
+  }
+});
+
+const onUpdate = (e) => {
+  var form = document.querySelector("#updateForm");
+  let data = new FormData(form);
+  data.set('submit','');
+  data.set('email',email); // sending email id to the backend
+  // so this function calls previous function in the backend
+  // in the previous i am getting the email
+  axios.post('/previous',data).then(res => {
+    if(res.data.success){
+      alert("New Inspection has been saved successfully")
+    }
+    else{
+      alert("Save Error!! Cannot save the inspection. Check your information or internet connection.")
+    }
+
+  })
+}
+
+const onLoad = (e) => {
+  var form = document.querySelector("#loadForm");
+  let data = new FormData(form);
+  data.set('load','');
+  data.set('email',email);
+  axios({
+    method: "post",
+    url: '/load_previous',
+    data: data
+})
+}
+
+</script>
+
+
+  </body>
+</html>
